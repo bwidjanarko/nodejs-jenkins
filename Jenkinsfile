@@ -1,19 +1,34 @@
 pipeline {
+    environment {
+        dockerimagename = "bwidjanarko/back-app:v1"
+        dockerImage = ""
+    }
     agent any 
     stages {
-        stage('Static Analysis') {
+        stage('Checkout Source') {
             steps {
-                echo 'Run the static analysis to the code' 
+                git 'https://github.com/bwidjanarko/nodejs-jenkins'
             }
         }
-        stage('Compile') {
+        stage('Build Image') {
             steps {
-                echo 'Compile the source code' 
+                echo 'Build Image' 
+                script {
+                    dockerImage = docker.build dockerimagename
+                }
             }
         }
-        stage('Security Check') {
+        stage('Push Image') {
+            environment {
+               registryCredential = 'Dockerhub Credential'
+            }
             steps {
-                echo 'Run the security check against the application' 
+                echo 'Push Image' 
+                script {
+                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+                           dockerImage.push("latest")
+                    }
+                }
             }
         }
         stage('Run Unit Tests') {
