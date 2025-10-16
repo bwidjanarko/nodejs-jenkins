@@ -5,9 +5,9 @@ pipeline {
     }
     agent any 
     stages {
-        stage('Checkout Source') {
+        stage('Checkout SCM') {
             steps {
-                git 'https://github.com/bwidjanarko/nodejs-jenkins'
+                git branch: 'master', credentialsId: 'github.com/bwidjanarko', url: 'https://github.com/bwidjanarko/nodejs-jenkins.git'
             }
         }
         stage('Build Image') {
