@@ -2,15 +2,12 @@ pipeline {
     environment {
         dockerimagename = "bwidjanarko/back-app:v1"
         dockerImage = ""
-        MY_CREDENTIALS = credentials('github.com/bwidjanarko')
     }
     agent any 
     stages {
         stage('Checkout SCM') {
             steps {
-                echo "username is $MY_CREDENTIALS_USR"
-                echo "password is $MY_CREDENTIALS_PSW"
-                git branch: 'main', credentialsId: 'github.com/bwidjanarko', url: 'https://github.com/bwidjanarko/nodejs-jenkins.git'
+                git branch: 'main', credentialsId: '7b589ec9-630c-4db4-9d9e-7f3a965ec75e', url: 'https://github.com/bwidjanarko/nodejs-jenkins.git'
             }
         }
         stage('Build Image') {
