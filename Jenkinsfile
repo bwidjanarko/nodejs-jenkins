@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout SCM') {
             steps {
-                git branch: 'master', credentialsId: 'github.com/bwidjanarko', url: 'https://github.com/bwidjanarko/nodejs-jenkins.git'
+                git branch: 'main', credentialsId: 'github.com/bwidjanarko', url: 'https://github.com/bwidjanarko/nodejs-jenkins.git'
             }
         }
         stage('Build Image') {
